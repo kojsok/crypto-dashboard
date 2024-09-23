@@ -1,48 +1,6 @@
 import { z } from "zod";
-import { QueryClient } from '@tanstack/react-query';
 import axios from "axios";
-
-
-
-
-// export type Welcome = {
-//     status: string;
-//     data:   Data;
-// }
-
-// export type Data = {
-//     stats: Stats;
-//     coins: Coin[];
-// }
-
-// export type Coin = {
-//     uuid:              string;
-//     symbol:            string;
-//     name:              string;
-//     color:             string;
-//     iconURL:           string;
-//     marketCap:         string;
-//     price:             string;
-//     listedAt:          number;
-//     tier:              number;
-//     change:            string;
-//     rank:              number;
-//     sparkline:         (null | string)[];
-//     lowVolume:         boolean;
-//     coinrankingURL:    string;
-//     the24HVolume:      string;
-//     btcPrice:          string;
-//     contractAddresses: string[];
-// }
-
-// export type Stats = {
-//     total:          number;
-//     totalCoins:     number;
-//     totalMarkets:   number;
-//     totalExchanges: number;
-//     totalMarketCap: string;
-//     total24HVolume: string;
-// }
+import { API_TOKEN } from "./token";
 
 
 
@@ -103,7 +61,7 @@ export const validateResponse = async (response: Response): Promise<Response> =>
 // Опции запроса
 const options = {
     headers: {
-      'x-access-token': 'coinranking8d9eb63143e05c751858b2841856c4cc10cde0acf6c39182', // Замените на ваш ключ API
+      'x-access-token': API_TOKEN, // Замените на ваш ключ API
     },
   };
 

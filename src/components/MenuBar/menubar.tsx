@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Input } from "@/components/ui/input";
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '../ui/navigation-menu';
+import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '../ui/navigation-menu';
 import { Link } from 'react-router-dom';
 import { BodyTable } from '../BodyTable/BodyTable';
-import { useCryptoData } from '../Api/useCryptoData';
 
 const MenuBar = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -16,17 +15,6 @@ const MenuBar = () => {
         { name: 'Contact', path: '/contact' },
     ];
 
-    // Фильтрация элементов меню на основе поискового запроса
-    // const filteredItems = menuItems.filter(item =>
-    //     item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    // );
-
-    // const { data, error, isLoading } = useCryptoData();
-
-    // const filteredCoins = data?.filter(item =>
-    //     item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    // );
-    
 
     return (
         <div>
