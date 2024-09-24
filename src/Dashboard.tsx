@@ -49,17 +49,17 @@ import {
 import { ChangeEvent, useState } from 'react';
 import { useCryptoData } from './components/Api/useCryptoData';
 import { ChartCrypto } from './components/Charts/ChartCrypto';
-
-
-
+import { BarChartCrytpo } from './components/Charts/BarChartCrypto';
+import { LabelChartCrypto } from './components/Charts/LabelChartCrypto';
 
 export function Dashboard() {
-  // const [valueInput, setValueInput] = useState<number>(0);
+ 
   const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
   const [purchases, setPurchases] = useState<any[]>([]);
 
-  const { data } = useCryptoData();
+  // console.log(purchases);
 
+  const { data } = useCryptoData();
 
   const calculateTotal = (purchases: any[]) => {
     return purchases.reduce((total, purchase) => {
@@ -112,7 +112,7 @@ export function Dashboard() {
     );
   };
 
-  console.log(purchases);
+  
 
 
   return (
@@ -280,10 +280,10 @@ export function Dashboard() {
             <ChartCrypto />
           </div>
           <div className="col-span-12 md:col-span-4">
-            <ChartCrypto />
+            <BarChartCrytpo />
           </div>
           <div className="col-span-12 md:col-span-4">
-            <ChartCrypto />
+            <LabelChartCrypto />
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts"
 
 import {
   Card,
@@ -17,18 +17,23 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useEffect, useState } from "react"
 import { useCryptoDataHistory } from "../Api/useCryptoData"
+import { useEffect, useState } from "react"
+
+
 
 const chartConfig = {
   desktop: {
-    label: "Bitcoin",
+    label: "Desktop",
     color: "hsl(var(--chart-1))",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
 
-export function ChartCrypto() {
-
+export function LabelChartCrypto() {
   const { data: chartDataHistory } = useCryptoDataHistory();
   const [chartData, setChartData] = useState<{ price: string; timestamp: number; }[]>([]);
 
@@ -39,31 +44,28 @@ export function ChartCrypto() {
     }
   }, [chartDataHistory]); // Добавляем зависимость
 
-  
- 
+
 
   return (
+    //!!!
     <Card>
       <CardHeader>
         <CardTitle>Bitcoin 12 month statistic</CardTitle>
-        <CardDescription>
-          Showing total price for the last 12 months
-        </CardDescription>
+        <CardDescription>Showing total price for the last 12 months</CardDescription>
       </CardHeader>
-      <CardContent >
-        <ChartContainer config={chartConfig} className="h-full " >
-          <AreaChart 
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <LineChart
             accessibilityLayer
             data={chartData}
             margin={{
               left: 12,
               right: 12,
             }}
-            
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="price"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
@@ -71,28 +73,31 @@ export function ChartCrypto() {
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
+              content={<ChartTooltipContent hideLabel />}
             />
-            <Area
-              dataKey="price"  //dataKey="desktop" 
+            <Line
+              dataKey="price"
               type="natural"
-              fill="var(--color-desktop)"
-              fillOpacity={0.4}
               stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={{
+                fill: "var(--color-desktop)",
+              }}
+              activeDot={{
+                r: 6,
+              }}
             />
-          </AreaChart>
+          </LineChart>
         </ChartContainer>
       </CardContent>
-      {/* <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - June 2024
-            </div>
-          </div>
+     
+
+      {/* <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 font-medium leading-none">
+          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="leading-none text-muted-foreground">
+          Showing total visitors for the last 6 months
         </div>
       </CardFooter> */}
     </Card>

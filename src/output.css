@@ -1302,6 +1302,10 @@ body {
   fill: currentColor;
 }
 
+.fill-foreground {
+  fill: hsl(var(--foreground));
+}
+
 .p-1 {
   padding: 0.25rem;
 }

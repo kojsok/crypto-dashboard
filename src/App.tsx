@@ -2,12 +2,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import MenuBar from './components/MenuBar/menubar'
 import { Dashboard } from './Dashboard';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './components/Api/api';
 
 function App() {
   
 
   return (
     <>
+    <QueryClientProvider client={queryClient}>
       <Router>
             <div>
                 {/* Определяем маршруты для каждой страницы */}
@@ -19,6 +22,7 @@ function App() {
                 </Routes>
             </div>
         </Router>
+    </QueryClientProvider>
     </>
   )
 }
