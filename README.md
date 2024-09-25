@@ -1,50 +1,29 @@
-# React + TypeScript + Vite
+![Dashboard cryptocurrencies](./src/assets/Dashboard.jpg)
+![Wallet cryptocurrencies](./src/assets/Wallet.jpg)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### **Описание проекта: Аналитика крипто кошелька**
+Проект представляет собой инструмент для анализа и прогнозирования доходности криптовалютных инвестиций. Основные функции:
 
-Currently, two official plugins are available:
+1. **Анализ купленной криптовалюты**
+   Проект отслеживает данные о приобретенной криптовалюте и анализирует, сколько прибыли или убытков можно было бы получить за определённые временные интервалы, основываясь на прошлых ценах.
+1. **Эмуляция покупки криптовалюты**
+   На дашборде можно симулировать покупку криптовалюты в различных временных точках, чтобы увидеть, сколько можно было бы заработать, если бы инвестиция была сделана, например, месяц назад или в более ранний срок.
+1. **Сравнение итогового бюджета**
+   Проект позволяет сравнивать текущий бюджет с гипотетическим, показывая, сколько бы вы заработали или потеряли при покупке криптовалюты в разных временных интервалах.
+1. **Прогнозирование доходности**
+   Система также предсказывает, сколько можно заработать, если продать купленную криптовалюту по текущим ценам, на основе актуальных рыночных данных.
+-----
+**Дисклеймер:**
+*Проект представляет собой инструмент для анализа и прогнозирования доходности криптовалютных инвестиций. Создан с целью ознакомления, не является инвестиционной рекомендацией, не является продуктом для использования в инвестиционных операциях, а также в операциях на фондовом и криптовалютном рынке или других инвестиционных продуктах. Автор данного дашборда не несет никакой ответственности за его использование, так как приложение создано исключительно в ознакомительных целях. Приложение не побуждает к покупке криптовалюты или акций фондового рынка.*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+-----
+### **Технический стек:**
+- **React**: Используется для создания пользовательского интерфейса и управления состоянием приложения.
+- **Zod**: Применяется для валидации данных, полученных от API.
+- **React Query**: Для работы с асинхронными запросами и кэширования данных.
+- **Recharts**: Библиотека для создания интерактивных графиков и визуализации данных.
+- **ShadCN UI**: Для создания настраиваемых и удобных компонентов интерфейса.
+- **React Router**: Обеспечивает маршрутизацию внутри приложения.
+- **Lucide-React**: Используется для интеграции иконок в интерфейсе.
+- **Axios**: Для отправки запросов к API и получения данных.
+- **TailwindCSS**: Используется для стилизации компонентов и создания адаптивного интерфейса.

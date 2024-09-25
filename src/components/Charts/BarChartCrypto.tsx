@@ -43,17 +43,56 @@ export function BarChartCrytpo() {
   const [chartData, setChartData] = useState<{ price: string; timestamp: number; }[]>([]);
 
   useEffect(() => {
-    // Проверяем, если данные есть, тогда обновляем состояние
     if (chartDataHistory) {
-      setChartData(chartDataHistory);
+      // Создаем объект для хранения уникальных записей по месяцам
+      const uniqueMonths: { [key: string]: { price: string; timestamp: number; } } = {};
+
+      // Итерируем по данным и добавляем только одну запись для каждого месяца
+      chartDataHistory.forEach((item) => {
+        const date = new Date(item.timestamp * 1000);
+        const monthYearKey = `${date.getFullYear()}-${date.getMonth()}`; // Генерируем ключ на основе года и месяца
+
+        // Если запись за этот месяц еще не добавлена, добавляем
+        if (!uniqueMonths[monthYearKey]) {
+          uniqueMonths[monthYearKey] = item;
+        }
+      });
+
+      // Преобразуем объект обратно в массив
+      const filteredData = Object.values(uniqueMonths).sort(
+        (a, b) => a.timestamp - b.timestamp
+      );
+
+      setChartData(filteredData);
     }
-  }, [chartDataHistory]); // Добавляем зависимость
+  }, [chartDataHistory]);
+
+
+  // Функция для форматирования timestamp в месяц и год
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp * 1000); // timestamp в секундах, поэтому умножаем на 1000
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+    });
+  };
+
+
+  // Функция для форматирования цены
+  const formatPrice = (price: string) => {
+    const parsedPrice = parseFloat(price); // Преобразуем строку в число
+    return new Intl.NumberFormat('ru-RU', {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(parsedPrice);
+  };
 
 
   return (
-   
-      //!!!
-      <Card>
+
+    //!!!
+    <Card>
       <CardHeader>
         <CardTitle>Bitcoin 12 month statistic</CardTitle>
         <CardDescription>Showing total price for the last 12 months</CardDescription>
@@ -63,15 +102,20 @@ export function BarChartCrytpo() {
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="price"
+              dataKey="timestamp"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              // tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(timestamp) => formatDate(timestamp)}
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              // content={<ChartTooltipContent hideLabel />}
+              content={<ChartTooltipContent
+                indicator="line"
+                formatter={(value) => formatPrice(value as string)} // Форматируем цену в подсказке
+              />}
             />
             <Bar dataKey="price" fill="var(--color-desktop)" radius={8} />
           </BarChart>

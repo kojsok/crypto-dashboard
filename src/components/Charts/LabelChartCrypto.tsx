@@ -36,14 +36,49 @@ const chartConfig = {
 export function LabelChartCrypto() {
   const { data: chartDataHistory } = useCryptoDataHistory();
   const [chartData, setChartData] = useState<{ price: string; timestamp: number; }[]>([]);
-
   useEffect(() => {
-    // Проверяем, если данные есть, тогда обновляем состояние
     if (chartDataHistory) {
-      setChartData(chartDataHistory);
-    }
-  }, [chartDataHistory]); // Добавляем зависимость
+      // Создаем объект для хранения уникальных записей по месяцам
+      const uniqueMonths: { [key: string]: { price: string; timestamp: number; } } = {};
 
+      // Итерируем по данным и добавляем только одну запись для каждого месяца
+      chartDataHistory.forEach((item) => {
+        const date = new Date(item.timestamp * 1000);
+        const monthYearKey = `${date.getFullYear()}-${date.getMonth()}`; // Генерируем ключ на основе года и месяца
+
+        // Если запись за этот месяц еще не добавлена, добавляем
+        if (!uniqueMonths[monthYearKey]) {
+          uniqueMonths[monthYearKey] = item;
+        }
+      });
+
+      // Преобразуем объект обратно в массив
+      const filteredData = Object.values(uniqueMonths).sort(
+        (a, b) => a.timestamp - b.timestamp
+      );
+
+      setChartData(filteredData);
+    }
+  }, [chartDataHistory]);
+
+  // Функция для форматирования timestamp в месяц и год
+  const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp * 1000); // timestamp в секундах, поэтому умножаем на 1000
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+    });
+  };
+
+  // Функция для форматирования цены
+  const formatPrice = (price: string) => {
+    const parsedPrice = parseFloat(price); // Преобразуем строку в число
+    return new Intl.NumberFormat('ru-RU', {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(parsedPrice);
+  };
 
 
   return (
@@ -65,15 +100,21 @@ export function LabelChartCrypto() {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="price"
+              dataKey="timestamp"  //dataKey="price"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              // tickFormatter={(value) => value.slice(0, 3)}
+              // Используем функцию для форматирования timestamp
+              tickFormatter={(timestamp) => formatDate(timestamp)}
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              // content={<ChartTooltipContent hideLabel />}
+              content={<ChartTooltipContent
+                indicator="line"
+                formatter={(value) => formatPrice(value as string)} // Форматируем цену в подсказке
+              />}
             />
             <Line
               dataKey="price"
@@ -90,7 +131,7 @@ export function LabelChartCrypto() {
           </LineChart>
         </ChartContainer>
       </CardContent>
-     
+
 
       {/* <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">

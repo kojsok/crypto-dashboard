@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, memo, useCallback, useRef, useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '../ui/navigation-menu';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { BodyTable } from '../BodyTable/BodyTable';
 
 const MenuBar = () => {
     const [searchQuery, setSearchQuery] = useState('');
+    const searchInputRef = useRef<HTMLInputElement>(null);
 
     // Массив с путями для каждой страницы
     const menuItems = [
@@ -15,6 +16,10 @@ const MenuBar = () => {
         { name: 'Contact', path: '/contact' },
     ];
 
+    // Используем useCallback для предотвращения ненужного создания функции при каждом рендере
+    const handleSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+    }, []);
 
     return (
         <div>
@@ -39,9 +44,11 @@ const MenuBar = () => {
                     <div className="flex flex-col sm:flex-row justify-between items-center p-4">
                         {/* Поисковая строка для мобильных устройств будет выше меню */}
                         <Input
+                            ref={searchInputRef}
                             placeholder="Search..."
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
+                            // onChange={(e) => setSearchQuery(e.target.value)}
+                            onChange={handleSearchChange}  // Мемоизированная функция
                             className="mb-4 sm:mb-0 sm:mr-4 w-full sm:w-1/2 lg:w-full xl:w-[300px]"
                         />
                     </div>
@@ -52,9 +59,13 @@ const MenuBar = () => {
                     List of your popular cryptocurrencies.
                 </h1>
             </div>
-            <BodyTable searchQuery={searchQuery} />
+            {/* <BodyTable searchQuery={searchQuery} /> */}
+            <MemoizedBodyTable searchQuery={searchQuery} />
         </div>
     );
 };
 
-export default MenuBar;
+// Мемоизация компонента BodyTable
+const MemoizedBodyTable = memo(BodyTable);
+
+export default memo(MenuBar);
