@@ -18,19 +18,7 @@ import {
 import { useCryptoDataHistory } from "../Api/useCryptoData"
 import { useEffect, useState } from "react"
 export const description = "A bar chart with a label"
-// const chartData = [
-//   { month: "January", desktop: 43000000 },
-//   { month: "February", desktop: 47500000 },
-//   { month: "March", desktop: 64000000 },
-//   { month: "April", desktop: 73000000 },
-//   { month: "May", desktop: 23000000 },
-//   { month: "June", desktop: 41000000 },
-//   { month: "July", desktop: 49000000 },
-//   { month: "Augost", desktop: 51000000 },
-//   { month: "September", desktop: 61000000 },
-//   { month: "November", desktop: 71000000 },
-//   { month: "December", desktop: 61000000 },
-// ]
+
 const chartConfig = {
   desktop: {
     label: "Bitcoin",
