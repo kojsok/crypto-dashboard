@@ -35,7 +35,8 @@
 - Прописать в token.tsx **export const API_TOKEN = 'your_token_this';** 
 - **example:** *export const API_TOKEN = 'coinranking6666hghgfhgfh666661856c4cc10cde0acf6c39182';*
 - Запустить сборку проекта **npm install**
-**Работа с API**: 
+
+###**Работа с API**: 
 - https://api.coinranking.com/v2/coins - получение данных всех доступных криптовалют, получаем ответ вида:
 ![API cryptocurrencies](./src/assets/API.jpg)        
 
