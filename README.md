@@ -29,39 +29,15 @@
 - **TailwindCSS**: Используется для стилизации компонентов и создания адаптивного интерфейса.
 
 ### **Для работы:**
-*API TOKEN*: 
+**API TOKEN**: 
 - Зарегистрироваться на https://coinranking.com/
-- Сгенерировать бесплатный TOKEN KEY, создать в директории проекта /src/components/Api файл token.tsx
-- Прописать в token.tsx export const API_TOKEN = 'your_token_this'; 
-   *example:* export const API_TOKEN = 'coinranking6666hghgfhgfh666661856c4cc10cde0acf6c39182';
-- Запустить сборку проекта *npm install*
-*Работа с API*: 
-- https://api.coinranking.com/v2/coins - получение данных всех доступных криптовалют
-         "coins": [
-               {
-               "uuid": "Qwsogvtv82FCd",
-               "symbol": "BTC",
-               "name": "Bitcoin",
-               "color": "#f7931A",
-               "iconUrl": "https://cdn.coinranking.com/Sy33Krudb/btc.svg",
-               "marketCap": "159393904304",
-               "price": "9370.9993109108",
-               "listedAt": 1483228800,
-               "change": "-0.52",
-               "rank": 1,
-               "sparkline": [
-                  "9515.0454185372",
-                  "9540.1812284677",
-                  "9554.2212643043",
-                  "9593.571539283",
-                  ...
-               ],
-               "lowVolume": false,
-               "coinrankingUrl": "https://coinranking.com/coin/Qwsogvtv82FCd+bitcoin-btc",
-               "24hVolume": "6818750000",
-               "btcPrice": "1",
-               "contractAddresses": []
-               } 
+- Сгенерировать бесплатный **TOKEN KEY**, создать в директории проекта **/src/components/Api** файл **token.tsx**
+- Прописать в token.tsx **export const API_TOKEN = 'your_token_this';** 
+- **example:** *export const API_TOKEN = 'coinranking6666hghgfhgfh666661856c4cc10cde0acf6c39182';*
+- Запустить сборку проекта **npm install**
+**Работа с API**: 
+- https://api.coinranking.com/v2/coins - получение данных всех доступных криптовалют, получаем ответ вида:
+![API cryptocurrencies](./src/assets/API.jpg)        
 
 ### **Планы:**
 - **Тонкая аналитика wallet**: Завершить аналитику wallet-а.
